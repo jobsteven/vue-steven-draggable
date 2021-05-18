@@ -2,7 +2,7 @@
 
 ## preview
 
-![demo](steven-draggable.gif)
+![demo](https://github.com/jobsteven/vue-steven-draggable/raw/master/steven-draggable.gif)
 
 ## npm install
 
@@ -31,13 +31,10 @@ app.mount('#app');
   default DragZone
   {/* parent container will be used as default dragzone */}
   <span v-steven-draggable>DragZone = parent</span>
-
   {/* customized drazone .helloworld */}
   <span v-steven-draggable='.helloworld'>DragZone = .helloworld</span>
-  
   {/* customized drazone #dragZone*/}
   <span v-steven-draggable='#dragZone'>DragZone = #dragZone</span>
-
   {/*demo dragzones*/}
   <div
     class='helloworld'
@@ -45,7 +42,6 @@ app.mount('#app');
   >
     customized drazone class=.helloworld
   </div>
-
   <div
     id='dragZone'
     style='display:inline-block; width:200px; height:150px; border:1px dotted blue; margin: 2px'
