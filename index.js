@@ -1,9 +1,9 @@
 export default {
   install: (app, options) => {
     app.directive('steven-draggable', function stevenDraggableDirective(el, { value: dragzone }) {
-      el.onmousedown = function onDragStart(dragEvent: MouseEvent) {
+      el.onmousedown = function onDragStart(mouseDownEvent) {
         // 拖动目标
-        const dragTarget = dragEvent.target;
+        const dragTarget = mouseDownEvent.target;
 
         // 拖动区域 -- 默认为拖动目标的父节点
         const dragZone = document.querySelector(dragzone) || dragTarget.parentNode;
@@ -14,9 +14,9 @@ export default {
         const dragTargetOldOffsetY = dragTarget.style.top;
 
         // 全局监听
-        document.onmousemove = function (docEvent: MouseEvent) {
-          let dragTargetX = docEvent.pageX - dragEvent.offsetX;
-          let dragTragetY = docEvent.pageY - dragEvent.offsetY;
+        document.onmousemove = function (mouseMoveEvent) {
+          let dragTargetX = mouseMoveEvent.pageX - mouseDownEvent.offsetX;
+          let dragTragetY = mouseMoveEvent.pageY - mouseDownEvent.offsetY;
 
           const boundingRect = dragZone.getBoundingClientRect();
 
