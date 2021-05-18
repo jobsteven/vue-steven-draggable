@@ -1,0 +1,10 @@
+{
+  "name": "vue-steven-draggable",
+  "version": "1.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "steven",
+    "email": "1669499355@qq.com"
+  }
+}
