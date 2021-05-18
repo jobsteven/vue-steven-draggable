@@ -1,8 +1,13 @@
 {
   "name": "vue-steven-draggable",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "license": "MIT",
+  "keywords": [
+    "vue",
+    "vue-directive",
+    "draggable"
+  ],
   "author": {
     "name": "steven",
     "email": "1669499355@qq.com"
