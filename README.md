@@ -1,4 +1,4 @@
-# An easy pair of drag & drop vue directives
+## An easy pair of drag & drop vue directives
 
 `v-steven-draggable` and `v-steven-droppable`
 
