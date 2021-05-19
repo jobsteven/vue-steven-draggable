@@ -1,6 +1,6 @@
 ## An easy pair of drag & drop vue directives, full-featured and whole lifecycle events supported.
 
-- v-steven-draggable 
+#### v-steven-draggable 
  - `onDragStart` return value could be used as `dataTransfer` 
  - `onDragEnd(dragStatus)`
 
@@ -8,7 +8,7 @@
   - top
   - left
 
-- v-steven-droppable 
+#### v-steven-droppable 
  - `onDragEnter(dropStatus)` 
  - `onDragLeave(dropStatus)`
  - `onDragOver(dropStatus)`
