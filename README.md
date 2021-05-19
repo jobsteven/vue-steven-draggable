@@ -3,14 +3,17 @@
 - v-steven-draggable 
  - `onDragStart` return value could be used as `dataTransfer` 
  - `onDragEnd(dragStatus)`
+
+- dragStatus
+  - top
+  - left
+
 - v-steven-droppable 
  - `onDragEnter(dropStatus)` 
  - `onDragLeave(dropStatus)`
  - `onDragOver(dropStatus)`
  - `onDrop(dropStatus)` 
-- dragStatus
-  - top
-  - left
+
 - dropStatus
   - dataTransfer
   - loc
