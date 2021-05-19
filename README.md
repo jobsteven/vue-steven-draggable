@@ -17,8 +17,8 @@
 - dropStatus
   - dataTransfer
   - loc
-   - top
-   - left
+    - top
+    - left
    
 #### preview
 
