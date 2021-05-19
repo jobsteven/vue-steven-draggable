@@ -1,5 +1,10 @@
 export default {
   install: (app, options) => {
+    const droppableRegister = new Map();
+    let transferData = null;
+    let droppingTarget = null;
+    let droppingOption = null;
+
     app.directive('steven-draggable', {
       mounted: (el, bindings) => {
         let dragOptions = {
@@ -8,6 +13,7 @@ export default {
           onDragEnd: undefined
         };
 
+        // helpers
         if (typeof bindings.value === 'string') dragOptions['dragZone'] = bindings.value;
         if (typeof bindings.value === 'object') dragOptions = bindings.value;
 
@@ -30,16 +36,35 @@ export default {
           // 拖动事件禁用
           dragTarget.style.pointerEvents = 'none';
 
+          // 获取DragLoc对象信息
+          function getDragStatus() {
+            return {
+              top: dragTarget.style.top,
+              left: dragTarget.style.left
+            };
+          }
+
+          // 获取DragTransfer对象信息
+          function getDropStatus() {
+            return {
+              transferData,
+              loc: getDragStatus()
+            };
+          }
+
           // 拖动开始
           document.onmousemove = function (mouseMoveEvent) {
             // 开始拖动
-            if (!isDragging && dragOptions.onDragStart) dragOptions.onDragStart();
+            if (!isDragging && dragOptions.onDragStart) {
+              transferData = dragOptions.onDragStart();
+            }
 
             isDragging = true;
 
             let dragTargetX = mouseMoveEvent.pageX - mouseDownEvent.offsetX;
-            let dragTragetY = mouseMoveEvent.pageY - mouseDownEvent.offsetY;
+            let dragTargetY = mouseMoveEvent.pageY - mouseDownEvent.offsetY;
 
+            const probingTarget = document.elementFromPoint(dragTargetX, dragTargetY);
             const boundingRect = dragZone.getBoundingClientRect();
 
             // X边界判断 - 左边界
@@ -51,19 +76,41 @@ export default {
             }
 
             // Y边界判断 - 上边界
-            dragTragetY = dragTragetY < boundingRect.top ? boundingRect.top : dragTragetY;
+            dragTargetY = dragTargetY < boundingRect.top ? boundingRect.top : dragTargetY;
 
             // Y边界判断 - 下边界
-            if (dragTragetY + dragTarget.offsetHeight > boundingRect.bottom) {
-              dragTragetY = boundingRect.bottom - dragTarget.offsetHeight;
+            if (dragTargetY + dragTarget.offsetHeight > boundingRect.bottom) {
+              dragTargetY = boundingRect.bottom - dragTarget.offsetHeight;
             }
 
             // 更新坐标
             dragTarget.style.left = dragTargetX + 'px';
-            dragTarget.style.top = dragTragetY + 'px';
+            dragTarget.style.top = dragTargetY + 'px';
 
             // 切换定位 position = absolute
             dragTarget.style.position = 'absolute';
+
+            // 目标探测
+            const currentDroppableInfo = droppableRegister.get(probingTarget);
+
+            // onDragEnter
+            if (!droppingOption && currentDroppableInfo) {
+              if (currentDroppableInfo.onDragEnter)
+                currentDroppableInfo.onDragEnter(getDropStatus());
+            }
+
+            // onDragOver
+            if (droppingOption && droppingOption === currentDroppableInfo) {
+              if (droppingOption.onDragOver) droppingOption.onDragOver(getDropStatus());
+            }
+
+            // onDragLeave
+            if (droppingOption && droppingOption !== currentDroppableInfo) {
+              if (droppingOption.onDragLeave) droppingOption.onDragLeave(getDropStatus());
+            }
+
+            droppingOption = currentDroppableInfo;
+            droppingTarget = currentDroppableInfo ? probingTarget : null;
           };
 
           // 拖动结束
@@ -71,12 +118,15 @@ export default {
             // 监听清理
             document.onmousemove = window.onblur = document.onmouseup = null;
 
-            // 拖动结束
-            if (isDragging && dragOptions.onDragEnd)
-              dragOptions.onDragEnd({
-                left: dragTarget.style.left,
-                top: dragTarget.style.top
-              });
+            // onDrop
+            if (droppingOption && droppingOption.onDrop) {
+              droppingOption.onDrop(getDropStatus());
+            }
+
+            // onDragEnd
+            if (isDragging && dragOptions.onDragEnd) {
+              dragOptions.onDragEnd(getDragStatus());
+            }
 
             // 恢复初始定位
             dragTarget.style.position = dragTargetOldPosition;
@@ -84,10 +134,21 @@ export default {
             dragTarget.style.left = dragTargetOldOffsetX;
             dragTarget.style.top = dragTargetOldOffsetY;
             isDragging = false;
+            droppingTarget = null;
+            droppingOption = null;
+            transferData = null;
           };
         };
       },
       unmounted: (el) => (el.onmousedown = null)
+    });
+
+    app.directive('steven-droppable', {
+      mounted: function stevenDroppable(el, bindings) {
+        if (!bindings.value) return console.warn('steven-droppable bindings are missing.');
+        droppableRegister.set(el, bindings.value);
+      },
+      unmounted: (el) => droppableRegister.delete(el)
     });
   }
 };
