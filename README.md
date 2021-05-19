@@ -1,4 +1,6 @@
-# An easy pair of drag & drop vue directives: v-steven-draggable and v-steven-droppable
+# An easy pair of drag & drop vue directives
+
+`v-steven-draggable` and `v-steven-droppable`
 
 ## preview
 
@@ -24,14 +26,14 @@ app.use(stevenDraggable);
 app.mount('#app');
 ```
 
-## Used as a normal directive in jsx or template
-
-### v-steven-draggable
+## v-steven-draggable
 
 ```html
 <div class='inline-block w-40 h-40 border-2 border-dotted border-blue-500'>
+  <!-- dragzone = parent -->
   <span v-steven-draggable>dragging target</span>
 
+  <!-- customize dragzone-->
   <span
     class='inline-block w-8 h-8 bg-blue-500 select-none poiner'
     v-steven-draggable={{
@@ -60,7 +62,7 @@ function onDragEnd(dragStatus) {
 }
 ```
 
-### v-steven-droppable
+## v-steven-droppable
 
 ```html
 <div

@@ -6,7 +6,13 @@
   "keywords": [
     "vue",
     "vue-directive",
-    "draggable"
+    "directives",
+    "draggable",
+    "droppable",
+    "drag",
+    "drop",
+    "drag and drop",
+    "dragzone"
   ],
   "author": {
     "name": "steven",
