@@ -1,6 +1,6 @@
 {
   "name": "vue-steven-draggable",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "index.js",
   "license": "MIT",
   "keywords": [
@@ -17,5 +17,10 @@
   "author": {
     "name": "steven",
     "email": "1669499355@qq.com"
+  },
+  "homepage": "https://github.com/jobsteven/vue-steven-draggable",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jobsteven/vue-steven-draggable.git"
   }
 }
