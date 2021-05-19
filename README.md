@@ -1,4 +1,4 @@
-# A pure simple vue draggable directive
+# An easy pair of drag & drop vue directives: v-steven-draggable and v-steven-droppable
 
 ## preview
 
@@ -26,27 +26,69 @@ app.mount('#app');
 
 ## Used as a normal directive in jsx or template
 
-```javascript
-<div style='width:600px; height: 400px; border:1px solid gray;'>
-  default DragZone
-  {/* parent container will be used as default dragzone */}
-  <span v-steven-draggable>DragZone = parent</span>
-  {/* customized drazone .helloworld */}
-  <span v-steven-draggable='.helloworld'>DragZone = .helloworld</span>
-  {/* customized drazone #dragZone*/}
-  <span v-steven-draggable='#dragZone'>DragZone = #dragZone</span>
-  {/*demo dragzones*/}
-  <div
-    class='helloworld'
-    style='display:inline-block; width:200px; height:150px; border:1px dotted green; margin: 2px'
-  >
-    customized drazone class=.helloworld
-  </div>
-  <div
-    id='dragZone'
-    style='display:inline-block; width:200px; height:150px; border:1px dotted blue; margin: 2px'
-  >
-    customized drazone id=dragZone
-  </div>
+### v-steven-draggable
+
+```html
+<div class='inline-block w-40 h-40 border-2 border-dotted border-blue-500'>
+  <span v-steven-draggable>dragging target</span>
+
+  <span
+    class='inline-block w-8 h-8 bg-blue-500 select-none poiner'
+    v-steven-draggable={{
+      onDragStart,
+      onDragEnd,
+      dragZone: 'body' // querySelector
+    }}
+  ></span>
 </div>
+```
+
+```javascript
+function onDragStart() {
+  const transferData = {
+    name: 'alex',
+    email: '166'
+  };
+
+  console.log('onDragStart', transferData);
+
+  return transferData;
+}
+
+function onDragEnd(dragStatus) {
+  console.log('onDragEnd', dragStatus);
+}
+```
+
+### v-steven-droppable
+
+```html
+<div
+  class='helloworld inline-block w-40 h-40 border-2 border-dotted border-blue-500'
+  v-steven-droppable={{
+    onDragEnter,
+    onDragOver,
+    onDragLeave,
+    onDrop
+  }}
+></div>
+
+```
+
+```javascript
+function onDragEnter(dropStatus) {
+  console.log('onDragEnter', dropStatus);
+}
+
+function onDragOver(dropStatus) {
+  console.log('onDragOver', dropStatus);
+}
+
+function onDragLeave(dropStatus) {
+  console.log('onDragLeave', dropStatus);
+}
+
+function onDrop(dropStatus) {
+  console.log('onDrop', dropStatus);
+}
 ```
