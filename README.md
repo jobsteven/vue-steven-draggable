@@ -2,7 +2,7 @@
 
 `v-steven-draggable` and `v-steven-droppable`
 
-## preview
+#### preview
 
 ![demo](https://github.com/jobsteven/vue-steven-draggable/raw/master/steven-draggable.gif)
 
