@@ -1,18 +1,33 @@
-## An easy pair of drag & drop vue directives
+## An easy pair of drag & drop vue directives, full-featured and whole lifecycle events supported.
 
-`v-steven-draggable` and `v-steven-droppable`
-
+- v-steven-draggable 
+ - `onDragStart` return value could be used as `dataTransfer` 
+ - `onDragEnd(dragStatus)`
+- v-steven-droppable 
+ - `onDragEnter(dropStatus)` 
+ - `onDragLeave(dropStatus)`
+ - `onDragOver(dropStatus)`
+ - `onDrop(dropStatus)` 
+- dragStatus
+  - top
+  - left
+- dropStatus
+  - dataTransfer
+  - loc
+   - top
+   - left
+   
 #### preview
 
 ![demo](https://github.com/jobsteven/vue-steven-draggable/raw/master/steven-draggable.gif)
 
-## npm install
+#### npm install
 
 ```javascript
 npm install vue-steven-draggable
 ```
 
-## vue install
+#### vue install
 
 ```javascript
 import { createApp } from '@vue/runtime-dom';
@@ -26,7 +41,7 @@ app.use(stevenDraggable);
 app.mount('#app');
 ```
 
-## v-steven-draggable
+#### v-steven-draggable
 
 ```html
 <div class='inline-block w-40 h-40 border-2 border-dotted border-blue-500'>
@@ -62,7 +77,7 @@ function onDragEnd(dragStatus) {
 }
 ```
 
-## v-steven-droppable
+#### v-steven-droppable
 
 ```html
 <div
